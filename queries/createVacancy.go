@@ -3,6 +3,7 @@ package queries
 import (
 	"encoding/json"
 	"fmt"
+	generate_data "generateScript"
 	"generateScript/models"
 	"log"
 	"net/http"
@@ -11,7 +12,7 @@ import (
 
 func CreateVacancy(vacancy *models.Vacancy, cookie string) {
 
-	url := "http://localhost:8080/api/vacancy"
+	url := generate_data.Host + "/api/vacancy"
 	method := "POST"
 
 	vacancyJson, err := json.Marshal(vacancy)
@@ -36,6 +37,8 @@ func CreateVacancy(vacancy *models.Vacancy, cookie string) {
 		fmt.Println(err)
 		return
 	}
+
+	log.Println(res.Status)
 	defer res.Body.Close()
 
 }

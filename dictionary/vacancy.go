@@ -8,8 +8,8 @@ import (
 
 func GenerateVacancy() *models.Vacancy {
 	result := &models.Vacancy{
-		Title:        fmt.Sprintf("%s%s"),
-		Salary:       uint(rand.Uint64()%290000 + 10000),
+		Title:        generateTitle(),
+		Salary:       uint(rand.Uint64()%2900+100) * 100,
 		Hours:        hours[rand.Int()%len(hours)],
 		Experience:   experience[rand.Int()%len(experience)],
 		Format:       format[rand.Int()%len(format)],

@@ -2,6 +2,7 @@ package queries
 
 import (
 	"encoding/json"
+	generate_data "generateScript"
 	"generateScript/models"
 	"log"
 	"net/http"
@@ -9,14 +10,13 @@ import (
 )
 
 func SignUp(account *models.UserAccount) string {
-	url := "http://localhost:8080/auth/sign-up"
+	url := generate_data.Host + "/auth/sign-up"
 	method := "POST"
 	user, err := json.Marshal(account)
 	if err != nil {
 		log.Println(err)
 		return ""
 	}
-
 	payload := strings.NewReader(string(user))
 
 	client := &http.Client{}
@@ -34,5 +34,6 @@ func SignUp(account *models.UserAccount) string {
 	}
 	defer res.Body.Close()
 
+	log.Println(res.Status)
 	return res.Header.Get("Set-Cookie")
 }
