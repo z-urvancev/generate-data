@@ -1,33 +1,26 @@
 package queries
 
 import (
-	"encoding/json"
 	"fmt"
 	generate_data "generateScript"
-	"generateScript/models"
 	"log"
 	"net/http"
 	"strings"
 )
 
-func CreateResume(resume *models.Resume, cookie string) {
-
-	url := generate_data.Host + "/api/resume"
+func Apply(vacancyId, resumeId uint, cookie string) {
+	url := fmt.Sprintf("%s/api/vacancy/apply/%d", generate_data.Host, resumeId)
 	method := "POST"
 
-	log.Println(resume.Title)
-	resumeJson, err := json.Marshal(resume)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	payload := strings.NewReader(string(resumeJson))
+	payload := strings.NewReader(fmt.Sprintf(`{
+    "id": %d
+}`, vacancyId))
 
 	client := &http.Client{}
 	req, err := http.NewRequest(method, url, payload)
 
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 	req.Header.Add("Content-Type", "application/json")
@@ -35,11 +28,16 @@ func CreateResume(resume *models.Resume, cookie string) {
 
 	res, err := client.Do(req)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
-
-	log.Println(res.Status)
 	defer res.Body.Close()
 
+	log.Println(res.Status)
+	//body, err := ioutil.ReadAll(res.Body)
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+	//fmt.Println(string(body))
 }

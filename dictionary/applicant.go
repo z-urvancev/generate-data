@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"generateScript/models"
 	"math/rand"
+	"time"
 )
 
 func GenerateApplicant(i int) *models.UserAccount {
@@ -13,6 +14,9 @@ func GenerateApplicant(i int) *models.UserAccount {
 		ApplicantName:    generateName(),
 		ApplicantSurname: generateSurname(),
 		UserType:         "applicant",
+		Location:         generateLocation(),
+		Age:              uint(rand.Int())%34 + 16,
+		DateOfBirth:      time.Date(1970+rand.Int()%36, time.April, rand.Int()%365, 0, 0, 0, 0, time.Local),
 	}
 	return result
 }

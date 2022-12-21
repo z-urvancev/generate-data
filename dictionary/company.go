@@ -9,10 +9,13 @@ import (
 
 func GenerateEmployer(i int) *models.UserAccount {
 	result := &models.UserAccount{
-		Email:       fmt.Sprintf("%d_%s@mail.ru", i, "employer"),
-		Password:    "123456a!",
-		CompanyName: generateCompanyName(),
-		UserType:    "employer",
+		Email:        fmt.Sprintf("%d_%s@mail.ru", i, "employer"),
+		Password:     "123456a!",
+		CompanyName:  generateCompanyName(),
+		UserType:     "employer",
+		Location:     generateLocation(),
+		CompanySize:  uint(rand.Int()%100*100 + 100),
+		BusinessType: businessTypes[rand.Int()%len(businessTypes)],
 	}
 	return result
 }
@@ -24,6 +27,19 @@ func generateCompanyName() string {
 	iPost := rand.Int() % len(postfix)
 	result := strings.Join([]string{companyFirstWord[iF], prefixs[iPref], companySecondWord[iS], postfix[iPost]}, "")
 	return result
+}
+
+var businessTypes = []string{
+	"IT",
+	"B2B",
+	"Банк",
+	"Сельхоз",
+	"Промышленность",
+	"Образование",
+	"Сфера услуг",
+	"Питание",
+	"Развлечения",
+	"Спорт",
 }
 
 var companyFirstWord = []string{

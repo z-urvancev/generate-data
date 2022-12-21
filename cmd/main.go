@@ -3,7 +3,9 @@ package main
 import (
 	"generateScript/dictionary"
 	"generateScript/queries"
+	"math/rand"
 	"sync"
+	"time"
 )
 
 const employerCount = 10
@@ -12,9 +14,10 @@ const vacancyByEmployer = 10
 const applicantsCount = 10
 const resumeByApplicant = 5
 
-const applyByApplicant = 10
+const applyByApplicant = 5
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
 	wg := sync.WaitGroup{}
 	for i := 0; i < employerCount; i++ {
 		wg.Add(1)
@@ -34,6 +37,9 @@ func main() {
 			cookie := queries.SignUp(dictionary.GenerateApplicant(i))
 			for j := 0; j < resumeByApplicant; j++ {
 				queries.CreateResume(dictionary.GenerateResume(), cookie)
+			}
+			for k := 0; k < applyByApplicant; k++ {
+				queries.Apply(uint(rand.Int()%vacancyByEmployer+1), uint(rand.Int()%resumeByApplicant+1), cookie)
 			}
 		}(i, &wg)
 	}
