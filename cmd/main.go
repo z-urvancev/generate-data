@@ -8,7 +8,7 @@ import (
 
 func main() {
 	wg := sync.WaitGroup{}
-	for i := 100; i < 110; i++ {
+	for i := 0; i < 10; i++ {
 		wg.Add(1)
 		go func(i int, wg *sync.WaitGroup) {
 			defer wg.Done()
