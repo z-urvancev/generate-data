@@ -9,6 +9,7 @@ import (
 )
 
 func Apply(vacancyId, resumeId uint, cookie string) {
+	fmt.Print("apply: ")
 	url := fmt.Sprintf("%s/api/vacancy/apply/%d", generate_data.Host, resumeId)
 	method := "POST"
 
@@ -34,10 +35,4 @@ func Apply(vacancyId, resumeId uint, cookie string) {
 	defer res.Body.Close()
 
 	log.Println(res.Status)
-	//body, err := ioutil.ReadAll(res.Body)
-	//if err != nil {
-	//	fmt.Println(err)
-	//	return
-	//}
-	//fmt.Println(string(body))
 }

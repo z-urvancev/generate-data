@@ -39,7 +39,8 @@ func main() {
 				queries.CreateResume(dictionary.GenerateResume(), cookie)
 			}
 			for k := 0; k < applyByApplicant; k++ {
-				queries.Apply(uint(rand.Int()%vacancyByEmployer+1), uint(rand.Int()%resumeByApplicant+1), cookie)
+				queries.Apply(uint(rand.Int()%(vacancyByEmployer*employerCount)+1),
+					uint(rand.Int()%(resumeByApplicant*applicantsCount)+1), cookie)
 			}
 		}(i, &wg)
 	}

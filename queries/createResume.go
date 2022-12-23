@@ -11,7 +11,7 @@ import (
 )
 
 func CreateResume(resume *models.Resume, cookie string) {
-
+	fmt.Print("create resume: ")
 	url := generate_data.Host + "/api/resume"
 	method := "POST"
 

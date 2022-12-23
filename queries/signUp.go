@@ -2,6 +2,7 @@ package queries
 
 import (
 	"encoding/json"
+	"fmt"
 	generate_data "generateScript"
 	"generateScript/models"
 	"log"
@@ -10,6 +11,7 @@ import (
 )
 
 func SignUp(account *models.UserAccount) string {
+	fmt.Print("sign up: ")
 	url := generate_data.Host + "/auth/sign-up"
 	method := "POST"
 	user, err := json.Marshal(account)
@@ -35,5 +37,8 @@ func SignUp(account *models.UserAccount) string {
 	defer res.Body.Close()
 
 	log.Println(res.Status)
-	return res.Header.Get("Set-Cookie")
+	cookie := res.Header.Get("Set-Cookie")
+	UploadImage(account.UserType, cookie)
+
+	return cookie
 }

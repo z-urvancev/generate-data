@@ -11,7 +11,7 @@ import (
 )
 
 func CreateVacancy(vacancy *models.Vacancy, cookie string) {
-
+	fmt.Print("create vacancy: ")
 	url := generate_data.Host + "/api/vacancy"
 	method := "POST"
 

@@ -7,6 +7,7 @@ import (
 )
 
 func GenerateVacancy() *models.Vacancy {
+	title := generateTitle()
 	result := &models.Vacancy{
 		Title:        generateTitle(),
 		Salary:       uint(rand.Uint64()%2900+100) * 100,
@@ -14,10 +15,10 @@ func GenerateVacancy() *models.Vacancy {
 		Experience:   experience[rand.Int()%len(experience)],
 		Format:       format[rand.Int()%len(format)],
 		Location:     generateLocation(),
-		Tasks:        "Proin consectetur mi diam, eu semper sapien volutpat quis. Morbi ut facilisis tellus. Vestibulum porta maximus aliquet. Maecenas cursus, purus et rhoncus mattis, felis felis iaculis lorem, in sagittis augue lacus in dolor. Vestibulum ullamcorper risus lacus, quis efficitur velit fringilla eu. Mauris id nibh quis tellus aliquet mattis. Sed quis lectus quis leo vestibulum mattis. Integer nec magna purus. Pellentesque id elit felis. Sed ac tortor ante. Suspendisse ut urna eu nisl eleifend mattis id placerat ex. Praesent dolor neque, facilisis sed urna et, interdum consectetur nibh.",
+		Tasks:        vacancyTasks[title],
 		Description:  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tincidunt posuere ex non tempor. Sed massa erat, venenatis id mattis non, mollis ut nunc. Phasellus fringilla accumsan nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut dapibus sapien eget efficitur rutrum. Suspendisse accumsan bibendum ante id gravida. Pellentesque luctus porta magna quis iaculis. Proin posuere a velit quis viverra. Sed arcu nisl, faucibus a lacinia vel, iaculis a arcu. Etiam a leo id sem tincidunt congue eget a odio.",
-		Requirements: "Phasellus facilisis convallis suscipit. Proin commodo sem id eros semper aliquam. Vivamus vulputate, libero non lobortis aliquam, erat turpis vulputate mi, et vulputate mi nisl ut nisi. Pellentesque ac felis at ligula vehicula hendrerit pretium ac mi. Pellentesque vel lobortis ipsum. Proin ac ipsum sollicitudin, pulvinar lorem vel, pulvinar lacus. Pellentesque imperdiet sapien eget diam mollis molestie. Vivamus dolor est, rutrum ac orci ut, dapibus tempor sem.",
-		Extra:        "Sed eget egestas sapien. Maecenas venenatis in dolor at porta. Aenean eu mollis turpis. Nulla facilisi. Quisque tincidunt justo ut fermentum porta. Pellentesque commodo lectus volutpat tristique placerat. Phasellus ut elementum sem, ut sodales nulla. Praesent vestibulum ipsum ex, at rutrum metus pulvinar et. Sed hendrerit risus sapien, sit amet pharetra leo sodales sit amet. Aenean eu vehicula quam. Maecenas ipsum orci, rutrum sed nisi in, accumsan tempor lacus.",
+		Requirements: vacancyRequirements[title],
+		Extra:        vacancyExtra[title],
 	}
 	return result
 }
@@ -26,45 +27,6 @@ func generateTitle() string {
 	iPref := rand.Int() % len(prefixTitle)
 	i := rand.Int() % len(mainTitle)
 	return fmt.Sprintf("%s%s", prefixTitle[iPref], mainTitle[i])
-}
-
-var prefixTitle = []string{
-	"Младший ",
-	"Старший ",
-	"Начинающий ",
-	"", "", "", "", "",
-}
-
-var mainTitle = []string{
-	"Психолог",
-	"Golang-разработчик",
-	"С++-разработчик",
-	"С-разработчик",
-	"С#-разработчик",
-	"Java-разработчик",
-	"Python-разработчик",
-	"PHP-разработчик",
-	"Perl-разработчик",
-	"Тестировщик",
-	"Каскадер",
-	"Фитнес-тренер",
-	"Преподаватель",
-	"Воспитатель",
-	"Уборщик",
-	"Грузчик",
-	"Дизайнер",
-	"UX-исследователь",
-	"Маркетолог",
-	"Финансист",
-	"Банкир",
-	"Переводчик",
-	"Менеджер по продажам",
-	"Водитель",
-	"Дрессировщик",
-	"Продавец",
-	"Слесарь",
-	"Сварщик",
-	"Инженер",
 }
 
 var experience = []string{
@@ -89,4 +51,91 @@ var hours = []string{
 	"30",
 	"32",
 	"40",
+}
+
+var vacancyTasks = map[string]string{
+	"Психолог":             "Проведение первичного интервью с кандидатами, тестирование.\nСоздание командного духа внутри коллектива.\n Составление отчетности по выполненной работе.\n Помощь в адаптации, обучении, подготовке кадров",
+	"Golang-разработчик":   "Разработка новых сервисов на языке Golang, поддержка существующих, написание тестов и метрик",
+	"С++ разработчик":      "Разработка десктоп приложения на C++ с использованием платформы Qt",
+	"С-разработчик":        "разработка проектов компании на языке C; поддержка и развитие существующих программных продуктов.",
+	"C#-разработчик":       "Разработка новых сервисов на языке C#, поддержка существующих, написание тестов и метрик",
+	"Java-разработчик":     "Разработка новых сервисов на языке Java, поддержка существующих, написание тестов и метрик",
+	"Python-разработчик":   "Определять перечень доработок платформы и участвовать в их реализации; Расширять возможности платформы в областях DS-вычислений и глубокого обучения.",
+	"PHP-разработчик":      "Разработка кабинета поставщика с нуля;\n\n Создание блока для работы с нашим наличием для продажи через сайт;\n\n Написание аналитических отчетов, автоматизация для помощи в принятие решений нашими менеджерам;\n\n Перенос административной части сайта на новый движок админки AppStack;\n\n Написание тестов",
+	"Perl-разработчик":     "Разработка новых сервисов на языке Perl, поддержка существующих, написание тестов и метрик",
+	"Тестировщик":          "Разработка новых генераторов тестовых данных на интеграционных полигонах (около 100 цепочек генерации данных и связанных автоматизированных систем) и интеграция их в корпоративную систему создания тестовых данными, \nПоддержка и доработка существующих генераторов,\n Развитие корпоративной системы генерации данных",
+	"Фитнес-тренер":        "",
+	"Преподаватель":        "Транслирование программ КиберШколы по методическим пособиям и передача практического опыта для школьников от 6 до 14 лет. \n\n- Участие в промо-мероприятиях и конференциях;",
+	"Воспитатель":          "",
+	"Уборщик":              "Уборка концертных залов после мероприятий",
+	"Грузчик":              "",
+	"Финансист":            "",
+	"Банкир":               "",
+	"Переводчик":           "Встречать иностранных партренов; участвовать в переговорах",
+	"Менеджер по продажам": "",
+	"Водитель":             "Возить представителей компании на деловые встречи",
+	"Дрессировщик":         "Дрессировка тигров",
+	"Продавец":             "Работа за кассовым аппаратом",
+	"Сварщик":              "",
+	"Инженер":              "",
+}
+
+var vacancyRequirements = map[string]string{
+	"Психолог":             "Нестандартное мышление, креативность\nОтветственность, инициативность\nУмение работать с большим объемом информации\nОпыт приветствуется, но рассматриваем и без опыта, но с большим желанием рости и развиваться",
+	"Golang-разработчик":   "Уверенное знание языка golang; \nУверенное знание SQL; \nУмение работать с git; \nОпыт разработки коммерческих проектов.\nСпособность разбираться в чужом коде;\n \nСпособность работать в команде с другими разработчиками.",
+	"С++ разработчик":      "Высшее образование, \nЗнание языка С++ и библиотек STL, \nЗнание и понимание принципов ООП и паттернов проектирования, \nХорошая алгоритмическая подготовка: знание основных структур данных и алгоритмов.",
+	"С-разработчик":        "Нашей команде работают талантливые математики и успешные разработчики. Чтобы стать частью нашей команды тебе потребуется: \n\nналичие высшего технического образования или обучение на выпускном курсе; \nопыт разработки на С; \nLinux на уровне пользователя; \nбазовое владение Git.",
+	"C#-разработчик":       "Уверенное знание языка C#; \nУверенное знание SQL; \nУмение работать с git; \nОпыт разработки коммерческих проектов.\nСпособность разбираться в чужом коде;\n \nСпособность работать в команде с другими разработчиками.",
+	"Java-разработчик":     "Уверенное знание языка Java; \nУверенное знание SQL; \nУмение работать с git; \nОпыт разработки коммерческих проектов.\nСпособность разбираться в чужом коде;\n \nСпособность работать в команде с другими разработчиками.",
+	"Python-разработчик":   "Хорошее знание Python (стандартные и ML библиотеки, умение применять ООП); Понимание принципов построения моделей машинного обучения",
+	"PHP-разработчик":      "Разработка back-end и front-end частей системы;\n участвовать в fullstack-разработке продуктовых возможностей платформы (фичи для магазинов, админка, отчеты и т.п.);\n развивать инфраструктуру платформы (сервисы, апи, взаимодействие с внешними системами);\n Code-review;\n Поддержка и развитие API;\n Написание unit-тестов;\n Доработка API и базы данных на стороне back-end",
+	"Perl-разработчик":     "Уверенное знание языка Perl; \nУверенное знание SQL; \nУмение работать с git; \nОпыт разработки коммерческих проектов",
+	"Тестировщик":          "знание теории тестирования и принципов интеграции различных систем, протоколов обмена данными (MQ, Kafka, сериализация, json, xml)",
+	"Фитнес-тренер":        "",
+	"Преподаватель":        "Знание базовых основ компьютерной грамотности;\n\n- Знание алгоритмизации;\n\n- Знание основ языков программирования;\n\n- Умение разбираться с методикой и платформами в соответствии с инструкцией;\n\n- Знание одного или нескольких языков программирования\n\n- Высшее или неоконченное высшее образование в сфере IT\n\n- Хорошие знания в одном из языков программирования и программ: HTML, JavaScript, Python, Графические редакторы, Платформа Unity3D + С#; \n\n Обучаемость, желание получать новые знания",
+	"Воспитатель":          "Педагогичесое образование",
+	"Уборщик":              "",
+	"Грузчик":              "",
+	"Дизайнер":             "",
+	"UX-исследователь":     "",
+	"Маркетолог":           "",
+	"Финансист":            "",
+	"Банкир":               "",
+	"Переводчик":           "Знание английского на уровне С1-2, а так же одного из следующих языков на уровне С1-2: немецкий, арабский, китайский",
+	"Менеджер по продажам": "",
+	"Водитель":             "Водительский стаж от 5 лет",
+	"Дрессировщик":         "3 года в данной сфере",
+	"Продавец":             "Внимательность, усидчивость",
+	"Сварщик":              "",
+	"Инженер":              "",
+}
+
+var vacancyExtra = map[string]string{
+	"Психолог":             "Педагогическое образование",
+	"Golang-разработчик":   "Опыт работы с Linux, bash, Docker;\n Опыт работы с MySQL (5.5-8.0);\n Знание основ HTML, CSS, JS;\n Знание основ языка php;\n Опыт работы с сервисами обмена сообщениями.",
+	"С++ разработчик":      "Высшее техническое образование в области радиотехники/радиоэлектроники (МГТУ, МФТИ, ТУСУР, РГРТУ, ТГРТУ, МИФИ и т.п.), \nОпыт работы в среде MS Visual Studio, \nОпыт работы с системой автоматизации сборки CMake",
+	"С-разработчик":        "Опыт работы с GitLab, Redmine или Jenkins.",
+	"С#-разработчик":       "Опыт работы с .NET, k8s/Docker",
+	"Java-разработчик":     "Опыт работы с Git, Docker, Tarantool",
+	"Python-разработчик":   "Опыт работы со Spark и в целом с экосистемой Hadoop; PyTorch",
+	"PHP-разработчик":      "Опыт работы с .NET, k8s/Docker",
+	"Perl-разработчик":     "Опыт работы с .NET, k8s/Docker",
+	"Тестировщик":          "Опыт работы в банковской сфере и с Synteta",
+	"Фитнес-тренер":        "",
+	"Преподаватель":        "Педагогическое образование",
+	"Воспитатель":          "",
+	"Уборщик":              "Опыт работы в данной сфере",
+	"Грузчик":              "Опыт работы в данной сфере",
+	"Дизайнер":             "",
+	"UX-исследователь":     "",
+	"Маркетолог":           "",
+	"Финансист":            "",
+	"Банкир":               "",
+	"Переводчик":           "",
+	"Менеджер по продажам": "",
+	"Водитель":             "Опыт работы в данной сфере",
+	"Дрессировщик":         "Ветеринарское образование",
+	"Продавец":             "Опыт работы за кассовым аппаратом",
+	"Сварщик":              "",
+	"Инженер":              "",
 }
